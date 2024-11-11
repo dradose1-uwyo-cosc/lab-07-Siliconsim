@@ -1,27 +1,14 @@
-# Your Name Here
+# Jake Huggins          
 # UWYO COSC 1010
-# Submission Date
-# Lab XX
-# Lab Section:
-# Sources, people worked with, help given to:
-# Your
-# Comments
-# Here
+# 11/11/2024
+# Lab 09    
+# Lab Section: 14
+# Sources, people worked with, help given to: None
+
 # Classes
 # For this assignment, you will be creating two classes:
 # One for Pizza
 # One for a Pizzeria
-
-
-# - Declare your pizzeria object.
-# - Enter a while loop to ask if the user wants to order a pizza.
-# - Exit on the word `exit`.
-# - Call the placeOrder() method with your class instance.
-# - After the order is placed, call the getReceipt() method.
-# - Repeat the loop as needed.
-# - AFTER the loop, print how many orders were placed.
-# Example output:
-
 
 # You will be creating a Pizza class. It should have the following attributes:
 # - Size
@@ -49,15 +36,16 @@ class Pizza:
     def __init__(self, size, sauce = "Red"):
         if (size < 10):
             self.size = 10
-            return
-        self.size = size
+        else:
+            self.size = size
         self.sauce = sauce
         self.toppings = ["Cheese"]
-
-    def addToppings(self, *toppings_added):
-        for topping in toppings_added:
-            self.toppings.append(topping)
-
+  
+    def addToppings(self, toppings_added):
+        
+        for i in range(len(toppings_added)):
+            self.toppings.append(toppings_added[i])
+        
     def getAmountOfToppings(self):
         return len(self.toppings)
 
@@ -121,18 +109,18 @@ class Pizzeria:
         toppings = []
 
         while (True):
-            size = input('Please input a size for your pizza. It must be great than 10": ')
+            size = input('\nPlease input a size for your pizza. It must be great than 10": ')
             try:
                 size = int(size)
             except:
-                print("Please enter a whole number.")
+                print("\nPlease enter a whole number.")
                 continue
             #int(size)
-            sauce = input("Please input a sauce for your pizza. If none entered, the pizza will have red sauce: ")
+            sauce = input("\nPlease input a sauce for your pizza. If none entered, the pizza will have red sauce: ")
             if (sauce == ""):
                 sauce = "Red"
             while (True):
-                response = input("Please list the toppings you'd like. Press enter to stop: ")
+                response = input("\nPlease list the toppings you'd like. Press enter to stop: ")
                 if (not response == ""):
                     toppings.append(response)
                     continue
@@ -140,6 +128,8 @@ class Pizzeria:
             break
 
         new_pizza = Pizza(size, sauce)
+        #print(len(toppings))
+        #print(toppings)
         if (len(toppings) >= 1):
             new_pizza.addToppings(toppings)
         self.pizzas.append(new_pizza)
@@ -150,11 +140,30 @@ class Pizzeria:
     
     def getReceipt(self):
         pizza = self.pizzas[-1]
-        print("Receipt for your pizza.")
+        print("\nReceipt for your pizza.")
         print(f'Size: {pizza.getSize()}" \nSauce: {pizza.getSauce()} Sauce \nToppings: {pizza.getToppings()}')
+        print(f"Ordered a {pizza.getSize()} for {round(pizza.getSize() * self.price_per_inch, 2)}$")
+        print(f"Ordered {pizza.getAmountOfToppings()} toppings for {round(pizza.getAmountOfToppings() * self.price_per_topping, 2)}$")
+    
+    def getPizzasProduced(self):
+        return self.orders
+
+# - Declare your pizzeria object.
+# - Enter a while loop to ask if the user wants to order a pizza.
+# - Exit on the word `exit`.
+# - Call the placeOrder() method with your class instance.
+# - After the order is placed, call the getReceipt() method.
+# - Repeat the loop as needed.
+# - AFTER the loop, print how many orders were placed.
+# Example output:
 
 pizzeria = Pizzeria()
 
-pizzeria.placeOrder()
-print(pizzeria.getReceipt())
-print(f"The price of your pizza will be: {round(pizzeria.getPrice(), 3)}$")
+while (True):
+    if (input("Welcome to the Pizzeria. Press enter to continue and type 'Exit' to exit: ").lower() == "exit"):
+        print("\nPlease come again!")
+        break
+    pizzeria.placeOrder()
+    pizzeria.getReceipt()
+    print(f"The total price of your pizza will be: {round(pizzeria.getPrice(), 3)}$")
+print(f"The pizzeria had {pizzeria.getPizzasProduced()} orders for pizzas.")
