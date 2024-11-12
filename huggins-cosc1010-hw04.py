@@ -35,4 +35,5 @@ print(len(cleaned_contents))
 # Split each key value pair in the list into separate individual lists 
 for i in range(0, len(cleaned_contents)):
     output_char(cleaned_contents[i].split(":"))
+Path("output_art").write_text(output_string)
 print("\n" + output_string)
