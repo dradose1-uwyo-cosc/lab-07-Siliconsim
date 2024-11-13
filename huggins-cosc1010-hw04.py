@@ -9,6 +9,7 @@ mappings = {
 contents = ""
 cleaned_contents = ""
 output_string = ""
+debug = ""
 
 def output_char(pair):
     if (len(pair) <= 1):
@@ -18,6 +19,7 @@ def output_char(pair):
     
     times_to_output = int(pair[1])
     output_string += output_char * times_to_output
+    
     #for i in range(times_to_output + 1):
         #output_string += output_char
 
@@ -31,9 +33,7 @@ except FileNotFoundError:
 cleaned_contents = contents.replace("\n", "")
 cleaned_contents = cleaned_contents.split("\t")
 
-print(len(cleaned_contents))
 # Split each key value pair in the list into separate individual lists 
 for i in range(0, len(cleaned_contents)):
     output_char(cleaned_contents[i].split(":"))
 Path("out.txt").write_text(output_string)
-print("\n" + output_string)
