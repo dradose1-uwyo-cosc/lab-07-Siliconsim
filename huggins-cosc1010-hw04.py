@@ -11,15 +11,15 @@ cleaned_contents = ""
 output_string = ""
 
 def output_char(pair):
-    print(pair)
     if (len(pair) <= 1):
         return
     global output_string
     output_char = mappings[pair[0]]
     
     times_to_output = int(pair[1])
-    for i in range(times_to_output):
-        output_string += output_char
+    output_string += output_char * times_to_output
+    #for i in range(times_to_output + 1):
+        #output_string += output_char
 
 try:
     path = Path("prompt.txt")
@@ -35,5 +35,5 @@ print(len(cleaned_contents))
 # Split each key value pair in the list into separate individual lists 
 for i in range(0, len(cleaned_contents)):
     output_char(cleaned_contents[i].split(":"))
-Path("output_art.txt").write_text(output_string)
+Path("out.txt").write_text(output_string)
 print("\n" + output_string)
