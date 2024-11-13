@@ -1,5 +1,13 @@
 from pathlib import Path
 
+# Jake Huggins          
+# UWYO COSC 1010
+# 11/12/2024
+# HW 04
+# Lab Section: 14
+# Sources, people worked with, help given to:
+# https://www.geeksforgeeks.org/global-keyword-in-python/
+
 key_value_pairs = []
 mappings = {
     "w": " ",
