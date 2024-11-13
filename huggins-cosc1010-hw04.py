@@ -11,17 +11,18 @@ cleaned_contents = ""
 output_string = ""
 debug = ""
 
-def output_char(pair):
+def concat_char(pair):
+    global output_string
     if (len(pair) <= 1):
         return
-    global output_string
+    elif (pair[0] == "\nw"):
+        output_string += "\n"
+        pair[0] = "w"
+    
     output_char = mappings[pair[0]]
-    
     times_to_output = int(pair[1])
-    output_string += output_char * times_to_output
-    
-    #for i in range(times_to_output + 1):
-        #output_string += output_char
+    for i in range(times_to_output + 1):
+        output_string += output_char
 
 try:
     path = Path("prompt.txt")
@@ -29,11 +30,10 @@ try:
 except FileNotFoundError:
     print("File not found!")
 
-# Remove whitespaces and tabs from string
-cleaned_contents = contents.replace("\n", "")
-cleaned_contents = cleaned_contents.split("\t")
+# Remove tabs from string
+cleaned_contents = contents.split("\t")
 
-# Split each key value pair in the list into separate individual lists 
-for i in range(0, len(cleaned_contents)):
-    output_char(cleaned_contents[i].split(":"))
+# Split each key value pair in the list into separate individual lists and write to the file once completed
+for kvp in cleaned_contents:
+    concat_char(kvp.split(":"))
 Path("out.txt").write_text(output_string)
